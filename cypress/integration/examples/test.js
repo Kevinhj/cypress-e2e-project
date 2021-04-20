@@ -28,7 +28,10 @@ describe('My First Test Suite', () => {
           // do something else
         }
       }) //end of each
-
+      
+      cy.get('.brand').then(function(logo){
+        cy.log(logo.text());
+      })
       //expect(true).to.equal(true)
     })
   })
