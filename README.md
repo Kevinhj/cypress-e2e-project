@@ -2,7 +2,9 @@
 
 To open Cypress
 `node_modules/.bin/cypress open`
-
+or
+`npx cypress open`
+npx
 To run all specs using the command line (Cypress by default runs in headless in electron)
 `node_modules/.bin/cypress run`
 
