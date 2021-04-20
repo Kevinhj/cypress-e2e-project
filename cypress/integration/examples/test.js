@@ -8,13 +8,14 @@ describe('My First Test Suite', () => {
 
       cy.get('.product:visible').should('have.length', 4);
 
+      cy.get('.products').as('productLocatior'); //This is like create a variable to use the .products selector on several places
       // .find search only for .product child elements of .products
       // search elements within .products -> which is the target parent
-      cy.get('.products').find('.product').should('have.length', 4);
-
-      cy.get('.products').find('.product').eq(2).contains('ADD TO CART').click();
-
-      cy.get('.products').find('.product').each(($el, index, $list) => {
+      cy.get('@productLocatior').find('.product').should('have.length', 4);
+      cy.get('@productLocatior').find('.product').eq(2).contains('ADD TO CART').click().then(function(){
+        console.log('This will be printer on click, due to promise handling, sequence is guarantee');
+      });
+      cy.get('@productLocatior').find('.product').each(($el, index, $list) => {
 
         // selector to find the product name
         //$el is the current element on the loop
@@ -29,8 +30,13 @@ describe('My First Test Suite', () => {
         }
       }) //end of each
       
+      //assert if logo text is correctly displayed
+      cy.get('.brand').should('have.text', 'GREENKART');
+
+      // this is to print in logs
       cy.get('.brand').then(function(logo){
         cy.log(logo.text());
+
       })
       //expect(true).to.equal(true)
     })
